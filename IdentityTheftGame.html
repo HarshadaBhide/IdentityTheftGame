@@ -4,28 +4,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <style>
 canvas {
-    border:1px solid #d3d3d3;
+    border:5px solid #d3d3d3;
     background-color: #f1f1f1;
 }
+
 </style>
 </head>
-<body onload="startGame()">
-
-<p id="question">Question will be displayed here</p>
+<body  bgcolor="#E6E6FA" onload="startGame()">
+<h1 style="text-align:center"> Identity Theft Game </h1>
+<DIV style="position: absolute; top:480px; left:430px; width:500px; height:25px">
+<h3 id="question">Question will be displayed here</h3>
+</DIV>
+<div style="position: absolute; top:260px; left:1000px; ">
+  <button onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()" style="border:none; background: none;"><img src="up_button.png" width="48" height="48"></button><br><br><br>
+  <button onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()" style="border:none; background: none;"><img src="down_button.png" width="48" height="48"></button>
+</div>
+<div style="position: absolute; top:260px; left:60px; width:500px; height:25px">
+<p>If answer is "True", pass through Green door.</p><br>
+<p>If answer is "False", pass through Red door.</p>
+<!-- <p>Choose correct door to pass through for each question.</p> -->
+</div>
 
 <script>
-
 var myGamePiece;
 var myObstacles = [];
+var myBackgrounds = [];
 var questionNo = -1;
 var questionsList = ["A child can fall victim to identity theft.", "Identity theft damage is lmited to financial loss.", "Identity theft is a federal crime and its victim is recognized as a true victim in the eyes of law.", "Dumpster divers can steal your identity from thrown away receipts, credit offers, account statements and expired cards."];
 var answersList = ["true","false","true","true"];
+var backgroundList = ["img0.png","img1.png","img2.png","img3.png","img4.png","img5.png"];
 var qstnInterval = 450;
 var mySound;
+var backgroundWidth = 500;
+var score = 0;
+var maxScore = 5;
 
 function startGame() {
     myGamePiece = new component(30, 30, "standing.jpg", 50, 120, "image");
     mySound = new sound("bounce.mp3");
+    myBackground = new component(backgroundWidth, 270, backgroundList[0], 0, 0, "image");
+    myBackgrounds.push(myBackground);
     myGameArea.start();
 }
 
@@ -34,6 +52,9 @@ var myGameArea = {
     start : function() {
         this.canvas.width = 480;
         this.canvas.height = 270;
+        this.canvas.style.left = "430px";
+        this.canvas.style.top = "160px";
+        this.canvas.style.position = "absolute";
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
@@ -98,6 +119,12 @@ function component(width, height, color, x, y, type) {
 }
 
 function updateGameArea() {
+    if(score == maxScore)
+    {
+        winBack = new component(backgroundWidth, 270,'win1.jpg', 0, 0, "image");
+        winBack.update();
+        return;
+    }
 	var x, height, gap, minHeight, maxHeight, minGap, maxGap;
     if( myObstacles.length >1 )
     {
@@ -132,9 +159,41 @@ function updateGameArea() {
         myObstacles.pop();
         myObstacles.pop();
         myObstacles.push(new component(10, height, "green", x, 0));
-        myObstacles.push(new component(10, myGameArea.canvas.height - height, "gray", x, height));
+        myObstacles.push(new component(10, myGameArea.canvas.height - height, "red", x, height));
         questionNo += 1;
         document.getElementById("question").innerHTML = "True/False : " + questionsList[questionNo];
+        myBackground = new component(backgroundWidth, 270, backgroundList[questionNo+1], x, 0, "image");
+        <!--myBackgrounds.pop();-->
+        myBackgrounds.push(myBackground);
+        score += 1;
+        if( score == maxScore)
+        {
+            document.getElementById("question").innerHTML = "Congratulations! You have finished this level." ;
+            var button = document.createElement("input");
+            button.type = "button";
+            button.value = "Next Level";
+            button.style.position = "absolute";
+            button.style.top="550px"; 
+            button.style.left="430px"; 
+            button.onclick = function() {
+                window.location.href = "IdentityTheftGame_page2.html";
+            };
+            document.body.appendChild(button)
+            
+            for (i = 0; i < myBackgrounds.length; i += 1) {
+                myBackgrounds.pop();
+            }
+            for (i = 0; i < myObstacles.length; i += 1) {
+                myObstacles.pop();
+            }
+            return;
+        }
+    }
+    
+    for (i = 0; i < myBackgrounds.length; i += 1) {
+        myBackgrounds[i].speedX = -1;
+        myBackgrounds[i].newPos();    
+        myBackgrounds[i].update();
     }
     for (i = 0; i < myObstacles.length; i += 1) {
         myObstacles[i].x += -1;
@@ -180,12 +239,6 @@ function clearmove() {
     myGamePiece.speedY = 0; 
 }
 </script>
-<div style="text-align:center;width:480px;">
-  <button onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()">UP</button>
-  <button onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()">DOWN</button>
-</div>
-<p>If answer is "True", pass through green door.</p>
-<p>If answer is "False", pass through gray door.</p>
-<p>Choose correct door to pass through for each question.</p>
+
 </body>
 </html>

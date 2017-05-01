@@ -63,6 +63,12 @@ var myGameArea = {
     },
     stop : function() {
         clearInterval(this.interval);
+        window.setTimeout(function(){
+
+        // Move to a new location or you can do something else
+        window.location.href = "gameOver.html";
+
+    },  1000);
     },
     clear : function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -78,14 +84,14 @@ function component(width, height, color, x, y, type) {
     this.width = width;
     this.height = height;
     this.speedX = 0;
-    this.speedY = 0;    
+    this.speedY = 0;
     this.x = x;
-    this.y = y;    
+    this.y = y;
     this.update = function() {
         ctx = myGameArea.context;
         if (type == "image") {
-            ctx.drawImage(this.image, 
-                this.x, 
+            ctx.drawImage(this.image,
+                this.x,
                 this.y,
                 this.width, this.height);
         } else {
@@ -95,10 +101,10 @@ function component(width, height, color, x, y, type) {
     }
     this.newPos = function() {
         this.x += this.speedX;
-        this.y += this.speedY;        
-    }    
+        this.y += this.speedY;
+    }
 	this.crashWith = function(otherobj) {
-        
+
         var myleft = this.x;
         var myright = this.x + (this.width);
         var mytop = this.y;
@@ -133,7 +139,7 @@ function updateGameArea() {
         {
             if (myGamePiece.crashWith(myObstacles[0])) {
                 mySound.play();
-                myGameArea.stop();       
+                myGameArea.stop();
                 return;
             }
         }
@@ -156,7 +162,7 @@ function updateGameArea() {
     }
     myGameArea.clear();
 	myGameArea.frameNo += 1;
-    
+
     if (myGameArea.frameNo == 1 || everyinterval(qstnInterval)) {
         x = myGameArea.canvas.width;
         minHeight = 60;
@@ -185,13 +191,13 @@ function updateGameArea() {
             button.type = "button";
             button.value = "Next Level";
             button.style.position = "absolute";
-            button.style.top="550px"; 
-            button.style.left="430px"; 
+            button.style.top="550px";
+            button.style.left="430px";
             button.onclick = function() {
                 window.location.href = "IdentityTheftGame_page2.html";
             };
             document.body.appendChild(button)
-            
+
             for (i = 0; i < myBackgrounds.length; i += 1) {
                 myBackgrounds.pop();
             }
@@ -201,17 +207,17 @@ function updateGameArea() {
             return;
         }
     }
-    
+
     for (i = 0; i < myBackgrounds.length; i += 1) {
         myBackgrounds[i].speedX = -1;
-        myBackgrounds[i].newPos();    
+        myBackgrounds[i].newPos();
         myBackgrounds[i].update();
     }
     for (i = 0; i < myObstacles.length; i += 1) {
         myObstacles[i].x += -1;
         myObstacles[i].update();
     }
-    myGamePiece.newPos();    
+    myGamePiece.newPos();
     myGamePiece.update();
 }
 
@@ -227,7 +233,7 @@ function sound(src) {
     }
     this.stop = function(){
         this.sound.pause();
-    }    
+    }
 }
 
 function everyinterval(n) {
@@ -237,18 +243,18 @@ function everyinterval(n) {
 
 function moveup() {
     myGamePiece.image.src = "walking.png";
-    myGamePiece.speedY = -1; 
+    myGamePiece.speedY = -1;
 }
 
 function movedown() {
     myGamePiece.image.src = "walking.png";
-    myGamePiece.speedY = 1; 
+    myGamePiece.speedY = 1;
 }
 
 function clearmove() {
     myGamePiece.image.src = "standing.jpg";
-    myGamePiece.speedX = 0; 
-    myGamePiece.speedY = 0; 
+    myGamePiece.speedX = 0;
+    myGamePiece.speedY = 0;
 }
 </script>
 

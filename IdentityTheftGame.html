@@ -8,7 +8,7 @@ canvas {
     background-color: #f1f1f1;
 }
 body {
-    background-image: url("../IdentityTheftGame/bgSherlock.jpg");
+    background-image: url("bgSherlock.jpg");
 }
 h1, p, h3 {
     color: #ffffff;
@@ -16,17 +16,16 @@ h1, p, h3 {
 </style>
 </head>
 <body  bgcolor="#E6E6FA" onload="startGame()">
-<h1 style="text-align:center"> </h1>
-<DIV style="position: absolute; top:480px; left:430px; width:500px; height:25px">
+<h1 style="text-align:center"> Identity Theft Game </h1>
+<DIV style="position: absolute; top:500px; left:430px; width:500px; height:25px">
 <h3 id="question">Question will be displayed here</h3>
 </DIV>
-<div style="position: absolute; top:260px; left:1000px; ">
+<div style="position: absolute; top:260px; left:1100px; ">
   <button onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()" style="border:none; background: #ffffff; color: #000000; height:50px;width:150px; border-radius: 25px;">UP</button><br><br><br>
   <button onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()" style="border:none; background: #ffffff; color: #000000; height:50px;width:150px; border-radius: 25px;">DOWN</button>
 </div>
-<div style="position: absolute;top:20px;  left:500px; width:500px; height:25px">
-<p>If answer is "True", pass through Green door.</p><br>
-<p>If answer is "False", pass through Red door.</p>
+<div style="position: absolute;top:50px;  left:400px; width:1000px; height:25px">
+<p>If answer is "True", pass through Green door.       If answer is "False", pass through Red door.</p>
 <!-- <p>Choose correct door to pass through for each question.</p> -->
 </div>
 
@@ -38,16 +37,17 @@ var questionNo = -1;
 var questionsList = ["A child can fall victim to identity theft.", "Identity theft damage is lmited to financial loss.", "Identity theft is a federal crime and its victim is recognized as a true victim in the eyes of law.", "Dumpster divers can steal your identity from thrown away receipts, credit offers, account statements and expired cards."];
 var answersList = ["true","false","true","true"];
 var backgroundList = ["city.jpg","img1.png","img2.png","img3.png","img4.png","img5.png"];
-var qstnInterval = 450;
+var qstnInterval = 650;
 var mySound;
-var backgroundWidth = 500;
+var backgroundWidth = 680;
+var backgroundHeight = 370;
 var score = 0;
 var maxScore = 5;
 
 function startGame() {
     myGamePiece = new component(30, 30, "standing.jpg", 50, 120, "image");
     mySound = new sound("bounce.mp3");
-    myBackground = new component(backgroundWidth, 270, backgroundList[0], 0, 0, "image");
+    myBackground = new component(backgroundWidth, backgroundHeight, backgroundList[0], 0, 0, "image");
     myBackgrounds.push(myBackground);
     myGameArea.start();
 }
@@ -55,10 +55,10 @@ function startGame() {
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 480;
-        this.canvas.height = 270;
-        this.canvas.style.left = "430px";
-        this.canvas.style.top = "160px";
+        this.canvas.width = backgroundWidth;
+        this.canvas.height = backgroundHeight;
+        this.canvas.style.left = "330px";
+        this.canvas.style.top = "110px";
         this.canvas.style.position = "absolute";
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
@@ -173,7 +173,7 @@ function updateGameArea() {
         myObstacles.push(new component(10, myGameArea.canvas.height - height, "red", x, height));
         questionNo += 1;
         document.getElementById("question").innerHTML = "True/False : " + questionsList[questionNo];
-        myBackground = new component(backgroundWidth, 270, backgroundList[questionNo+1], x, 0, "image");
+        myBackground = new component(backgroundWidth, backgroundHeight, backgroundList[questionNo+1], x, 0, "image");
         <!--myBackgrounds.pop();-->
         myBackgrounds.push(myBackground);
         score += 1;

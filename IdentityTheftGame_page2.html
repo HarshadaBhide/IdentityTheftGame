@@ -8,7 +8,7 @@ canvas {
     background-color: #f1f1f1;
 }
 body {
-    background-image: url("../IdentityTheftGame/bgSherlock.jpg");
+    background-image: url("bgSherlock.jpg");
 }
 h1, p, h3 {
     color: #ffffff;
@@ -17,15 +17,16 @@ h1, p, h3 {
 </head>
 <body  bgcolor="#E6E6FA" onload="startGame()">
 <h1 style="text-align:center"> Identity Theft Game </h1>
-<div style="position: absolute; top:260px; left:1000px; ">
+<h3 style="text-align:center"> If answer is "A", pass through Green door. If answer is "B", pass through Red door. If answer is "C", pass through Orange door.</h3>
+<div style="position: absolute; top:260px; left:1150px; ">
   <button onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()" style="border:none; background: #ffffff; color: #000000; height:50px;width:150px; border-radius: 25px;">UP</button><br><br><br>
   <button onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()" style="border:none; background: #ffffff; color: #000000; height:50px;width:150px; border-radius: 25px;">DOWN</button>
 </div>
-<div style="position: absolute; top:150px; left:60px; width:400px; height:25px">
+<div style="position: absolute; top:150px; left:40px; width:380px; height:25px">
 <h3 id="question">Question will be displayed here</h3><br>
-<p id="ansA"><font color="green">If answer is "True", pass through Green door.</font></p>
-<p id="ansB"><font color="red">If answer is "False", pass through Red door.</font></p>
-<p id="ansC"><font color="orange">If answer is "True", pass through Green door.</font></p>
+<h3 id="ansA"><font color="white">If answer is "True", pass through Green door.</font></h3>
+<h3 id="ansB"><font color="white">If answer is "False", pass through Red door.</font></h3>
+<h3 id="ansC"><font color="white">If answer is "True", pass through Green door.</font></h3>
 </div>
 
 <script>
@@ -33,22 +34,23 @@ var myGamePiece;
 var myObstacles = [];
 var myBackgrounds = [];
 var questionNo = -1;
-var questionsList = ["A child can fall victim to identity theft.", "Identity theft damage is lmited to financial loss.", "Identity theft is a federal crime and its victim is recognized as a true victim in the eyes of law.", "Dumpster divers can steal your identity from thrown away receipts, credit offers, account statements and expired cards."];
-var answersA = ["Answer A.", "Answer A.", "Answer A.", "Answer A."];
-var answersB = ["Answer B.", "Answer B.", "Answer B.", "Answer B."];
-var answersC = ["Answer C.", "Answer C.", "Answer C.", "Answer C."];
-var answersList = ["A","B","C","B"];
+var questionsList = ["What is Identity cloning?", "Identity theft damage is lmited to financial loss.", "Identity theft is a federal crime and its victim is recognized as a true victim in the eyes of law.", "Dumpster divers can steal your identity from thrown away receipts, credit offers, account statements and expired cards."];
+var answersA = ["Getting duplicate identity card when you already have one.", "Answer A.", "Answer A.", "Answer A."];
+var answersB = ["Using another's information to assume his or her identity in daily life.", "Answer B.", "Answer B.", "Answer B."];
+var answersC = ["Getting duplicate identity card when you loose your original card.", "Answer C.", "Answer C.", "Answer C."];
+var answersList = ["B","B","C","B"];
 var backgroundList = ["img0.png","img1.png","img2.png","img3.png","img4.png","img5.png"];
-var qstnInterval = 450;
+var qstnInterval = 650;
 var mySound;
-var backgroundWidth = 500;
+var backgroundWidth = 680;
+var backgroundHeight = 370;
 var score = 0;
 var maxScore = 5;
 
 function startGame() {
     myGamePiece = new component(30, 30, "standing.jpg", 50, 120, "image");
     mySound = new sound("bounce.mp3");
-    myBackground = new component(backgroundWidth, 270, backgroundList[0], 0, 0, "image");
+    myBackground = new component(backgroundWidth, backgroundHeight, backgroundList[0], 0, 0, "image");
     myBackgrounds.push(myBackground);
     myGameArea.start();
 }
@@ -56,8 +58,8 @@ function startGame() {
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 480;
-        this.canvas.height = 270;
+        this.canvas.width = backgroundWidth;
+        this.canvas.height = backgroundHeight;
         this.canvas.style.left = "430px";
         this.canvas.style.top = "160px";
         this.canvas.style.position = "absolute";
@@ -133,7 +135,7 @@ function component(width, height, color, x, y, type) {
 function updateGameArea() {
     if(score == maxScore)
     {
-        winBack = new component(backgroundWidth, 270,'win1.jpg', 0, 0, "image");
+        winBack = new component(backgroundWidth, backgroundHeight,'win1.jpg', 0, 0, "image");
         winBack.update();
         return;
     }
@@ -182,10 +184,10 @@ function updateGameArea() {
         myObstacles.push(new component(10, myGameArea.canvas.height - height - height2, "orange", x, height+height2));
         questionNo += 1;
         document.getElementById("question").innerHTML = questionsList[questionNo];
-        document.getElementById("ansA").innerHTML = "<font color=\"green\">A. "+answersA[questionNo]+"</font>";
-        document.getElementById("ansB").innerHTML = "<font color=\"red\">B. "+answersB[questionNo]+"</font>";
-        document.getElementById("ansC").innerHTML = "<font color=\"orange\">C. "+answersC[questionNo]+"</font>";
-        myBackground = new component(backgroundWidth, 270, backgroundList[questionNo+1], x, 0, "image");
+        document.getElementById("ansA").innerHTML = "<font color=\"white\">A. "+answersA[questionNo]+"</font>";
+        document.getElementById("ansB").innerHTML = "<font color=\"white\">B. "+answersB[questionNo]+"</font>";
+        document.getElementById("ansC").innerHTML = "<font color=\"white\">C. "+answersC[questionNo]+"</font>";
+        myBackground = new component(backgroundWidth, backgroundHeight, backgroundList[questionNo+1], x, 0, "image");
         <!--myBackgrounds.pop();-->
         myBackgrounds.push(myBackground);
         score += 1;

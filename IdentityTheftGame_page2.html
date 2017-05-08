@@ -7,16 +7,15 @@ canvas {
     border:5px solid #d3d3d3;
     background-color: #f1f1f1;
 }
-body {
-    background-image: url("bgSherlock.jpg");
-}
-h1, p, h3 {
+h1{
+  color: #1a71db;
+} p, h3 {
     color: #ffffff;
 }
 </style>
 </head>
-<body  bgcolor="#E6E6FA" onload="startGame()">
-<h1 style="text-align:center"> Identity Theft Game </h1>
+<body  bgcolor="#000000" onload="startGame()">
+<h1 style="text-align:center"> Sherlock Holmes : Secure your Identity </h1>
 <h3 style="text-align:center"> If answer is "A", pass through Green door. If answer is "B", pass through Red door. If answer is "C", pass through Orange door.</h3>
 <div style="position: absolute; top:260px; left:1150px; ">
   <button onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()" style="border:none; background: #ffffff; color: #000000; height:50px;width:150px; border-radius: 25px;">UP</button><br><br><br>
@@ -26,7 +25,7 @@ h1, p, h3 {
 <h3 id="question">Question will be displayed here</h3><br>
 <h3 id="ansA"><font color="white">If answer is "True", pass through Green door.</font></h3>
 <h3 id="ansB"><font color="white">If answer is "False", pass through Red door.</font></h3>
-<h3 id="ansC"><font color="white">If answer is "True", pass through Green door.</font></h3>
+<h3 id="ansC"><font color="white">If answer is "True", pass through Orange door.</font></h3>
 </div>
 
 <script>
@@ -39,7 +38,7 @@ var answersA = ["Getting duplicate identity card when you already have one.", "A
 var answersB = ["Using another's information to assume his or her identity in daily life.", "Answer B.", "Answer B.", "Answer B."];
 var answersC = ["Getting duplicate identity card when you loose your original card.", "Answer C.", "Answer C.", "Answer C."];
 var answersList = ["B","B","C","B"];
-var backgroundList = ["img0.png","img1.png","img2.png","img3.png","img4.png","img5.png"];
+var backgroundList = ["bg1.jpg","bg2.jpg","bg3.jpg","bg4.jpg","bg5.jpg","bg6.jpg"];
 var qstnInterval = 650;
 var mySound;
 var backgroundWidth = 680;
@@ -48,7 +47,7 @@ var score = 0;
 var maxScore = 5;
 
 function startGame() {
-    myGamePiece = new component(30, 30, "standing.jpg", 50, 120, "image");
+    myGamePiece = new component(30, 30, "Picture1.png", 50, 120, "image");
     mySound = new sound("bounce.mp3");
     myBackground = new component(backgroundWidth, backgroundHeight, backgroundList[0], 0, 0, "image");
     myBackgrounds.push(myBackground);
@@ -135,8 +134,9 @@ function component(width, height, color, x, y, type) {
 function updateGameArea() {
     if(score == maxScore)
     {
-        winBack = new component(backgroundWidth, backgroundHeight,'win1.jpg', 0, 0, "image");
-        winBack.update();
+        /*winBack = new component(backgroundWidth, backgroundHeight,'win1.jpg', 0, 0, "image");
+        winBack.update();*/
+        window.location.href = "WinnerPage.html";
         return;
     }
 	var x, height, minHeight, maxHeight, minGap, maxGap;
@@ -249,17 +249,17 @@ function everyinterval(n) {
 }
 
 function moveup() {
-    myGamePiece.image.src = "walking.png";
+    myGamePiece.image.src = "Picture2.png";
     myGamePiece.speedY = -1;
 }
 
 function movedown() {
-    myGamePiece.image.src = "walking.png";
+    myGamePiece.image.src = "Picture2.png";
     myGamePiece.speedY = 1;
 }
 
 function clearmove() {
-    myGamePiece.image.src = "standing.jpg";
+    myGamePiece.image.src = "Picture1.png";
     myGamePiece.speedX = 0;
     myGamePiece.speedY = 0;
 }

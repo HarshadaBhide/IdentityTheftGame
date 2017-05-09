@@ -9,24 +9,28 @@ canvas {
     background-color: #f1f1f1;
 }
 h1{
-  color: #1a71db;
-} p, h3 {
+  color: #fcef00;
+} p {
     color: #ffffff;
+}
+h3{
+    color: #fcef00;
+
 }
 </style>
 </head>
 <body  bgcolor="#000000" onload="startGame()">
 <h1 style="text-align:center"> Sherlock Holmes : Secure your Identity
  </h1>
-<DIV style="position: absolute; top:500px; left:500px; width:500px; height:25px">
+<DIV style="position: absolute; top:500px; left:490px; width:500px; height:25px">
 <h3 id="question">Question will be displayed here</h3>
 </DIV>
 <div style="position: absolute; top:260px; left:1100px; ">
   <button onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()" style="border:none; background: #ffffff; color: #000000; height:50px;width:150px; border-radius: 25px;">UP</button><br><br><br>
   <button onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()" style="border:none; background: #ffffff; color: #000000; height:50px;width:150px; border-radius: 25px;">DOWN</button>
 </div>
-<div style="position: absolute;top:55px;  left:330px; width:1000px; height:25px">
-<h3>If answer is "True", pass through Green door.       If answer is "False", pass through Red door.</h3>
+<div style="text-align:center">
+<p>If answer is "True", pass through Green door.       If answer is "False", pass through Red door.</p>
 <!-- <p>Choose correct door to pass through for each question.</p> -->
 </div>
 

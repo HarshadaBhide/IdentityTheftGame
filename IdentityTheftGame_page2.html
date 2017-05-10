@@ -36,11 +36,11 @@ var myGamePiece;
 var myObstacles = [];
 var myBackgrounds = [];
 var questionNo = -1;
-var questionsList = ["What is Identity cloning?", "Identity theft damage is lmited to financial loss.", "Identity theft is a federal crime and its victim is recognized as a true victim in the eyes of law.", "Dumpster divers can steal your identity from thrown away receipts, credit offers, account statements and expired cards."];
-var answersA = ["Getting duplicate identity card when you already have one.", "Answer A.", "Answer A.", "Answer A."];
-var answersB = ["Using another's information to assume his or her identity in daily life.", "Answer B.", "Answer B.", "Answer B."];
-var answersC = ["Getting duplicate identity card when you loose your original card.", "Answer C.", "Answer C.", "Answer C."];
-var answersList = ["B","B","C","B"];
+var questionsList = ["What is Identity cloning?", "Which of the following combinations yields the strongest password:", "In case of stolen credit card information, victim should register an immediate complaint with:", "If you suspect an email to be a phishing attempt, you should "];
+var answersA = ["Getting duplicate identity card when you already have one.", "Uppercase letters, numbers and length of 11 characters.", "Bank authorities and Police department", "Reply to the sender about your concern."];
+var answersB = ["Using another's information to assume his or her identity in daily life.", "Lowercase letters and length of 15 characters", "Bank authorities", "Open the link in it to verify your doubt."];
+var answersC = ["Getting duplicate identity card when you loose your original card.", "Uppercase and lowercase letters, numbers, special characters and length of 11 characters", "Police department", "Delete it (so you don't open it again) and report to proper authorities."];
+var answersList = ["B","C","A","C"];
 var backgroundList = ["bg1.jpg","bg2.jpg","bg3.jpg","bg4.jpg","bg5.jpg","bg6.jpg"];
 var qstnInterval = 650;
 var mySound;
@@ -175,7 +175,7 @@ function updateGameArea() {
 
     if (myGameArea.frameNo == 1 || everyinterval(qstnInterval)) {
         x = myGameArea.canvas.width;
-        minHeight = 60;
+        minHeight = 90;
         maxHeight = 110;
         height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
         myObstacles.pop();

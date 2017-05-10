@@ -50,7 +50,7 @@ var score = 0;
 var maxScore = 5;
 
 function startGame() {
-    myGamePiece = new component(30, 30, "Picture1.png", 50, 120, "image");
+    myGamePiece = new component(30, 70, "Picture1.png", 50, 120, "image");
     mySound = new sound("bounce.mp3");
     myBackground = new component(backgroundWidth, backgroundHeight, backgroundList[0], 0, 0, "image");
     myBackgrounds.push(myBackground);
@@ -175,8 +175,8 @@ function updateGameArea() {
 
     if (myGameArea.frameNo == 1 || everyinterval(qstnInterval)) {
         x = myGameArea.canvas.width;
-        minHeight = 90;
-        maxHeight = 110;
+        minHeight = 100;
+        maxHeight = 120;
         height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
         myObstacles.pop();
         myObstacles.pop();
